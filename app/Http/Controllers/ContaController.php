@@ -14,7 +14,7 @@ class ContaController extends Controller
     public function index()
     {
         // Recuperar os registros do Banco de Dados
-        $contas = Conta::orderByDesc('created_at')->get();
+        $contas = Conta::orderByDesc('created_at')->paginate(10);
 
         // Carregar a View
         return view('contas.index', ['contas' => $contas]);
