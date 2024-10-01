@@ -87,9 +87,9 @@
                                 </td>
                             </tr>
                         @empty
-                            <span style="color: #F00">
-                                Nenhuma Conta Encontrada!
-                            </span>
+                            <tr>
+                                <td colspan="5" class="text-danger text-center">Nenhuma Conta Encontrada!</td>
+                            </tr>
                         @endforelse
                     </tbody>
                 </table>

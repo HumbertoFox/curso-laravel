@@ -9,8 +9,8 @@
                 <tr style="background-color: #F0F0F0">
                     <th style="border: 1px solid #C0C0C0">ID</th>
                     <th style="border: 1px solid #C0C0C0">Nome</th>
-                    <th style="border: 1px solid #C0C0C0">Velor R$</th>
                     <th style="border: 1px solid #C0C0C0">Vencimento</th>
+                    <th style="border: 1px solid #C0C0C0">Velor R$</th>
                 </tr>
             </thead>
             <tbody>
@@ -19,15 +19,20 @@
                         <td style="border: 1px solid #C0C0C0; border-top: none">{{ $conta->id }}</td>
                         <td style="border: 1px solid #C0C0C0; border-top: none">{{ $conta->nome }}</td>
                         <td style="border: 1px solid #C0C0C0; border-top: none">
-                            {{ 'R$ ' . number_format($conta->valor, 2, ',', '.') }}</td>
-                        <td style="border: 1px solid #C0C0C0; border-top: none">
                             {{ \Carbon\Carbon::parse($conta->vencimento)->tz('America/Recife')->format('d/m/Y') }}</td>
+                        <td style="border: 1px solid #C0C0C0; border-top: none">
+                            {{ 'R$ ' . number_format($conta->valor, 2, ',', '.') }}</td>
                     </tr>
                 @empty
-                    <tr>
+                    <tr style="text-align: center">
                         <td colspan="4">Nenhuma Conta Encontrada!</td>
                     </tr>
                 @endforelse
+                <tr style="text-align: center; font-weight: bold; background-color: #F0F0F0; margin-top: 10px">
+                    <td colspan="3" style="border: 1px solid #C0C0C0; border-top: none">Total</td>
+                    <td style="border: 1px solid #C0C0C0; border-top: none">
+                        {{ 'R$ ' . number_format($valorTotal, 2, ',', '.') }}</td>
+                </tr>
             </tbody>
         </table>
     </section>

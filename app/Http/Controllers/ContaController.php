@@ -136,8 +136,16 @@ class ContaController extends Controller
             $whenQuery->where('vencimento', '<=', \Carbon\Carbon::parse($request->data_fim)->format('Y-m-d'));
         })->orderByDesc('created_at')->get();
 
-        $pdf = Pdf::loadView('contas.gerarpdf', ['contas' => $contas])->setPaper('a4', 'portrait');
+        // Calcular os Valores da coluna Valor
+        $valorTotal = $contas->sum('valor');
 
+        // Carregar a String com o HTML/Conteúdo e determinar a oração e o tamanho do arquivo
+        $pdf = Pdf::loadView('contas.gerarpdf', [
+            'contas' => $contas,
+            'valorTotal' => $valorTotal
+        ])->setPaper('a4', 'portrait');
+
+        // Fazer o Download do Arquivo em PDF
         return $pdf->download('lista_de_contas.pdf');
     }
 }
