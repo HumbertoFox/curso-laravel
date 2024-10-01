@@ -8,7 +8,6 @@
             </div>
 
             {{-- Exibir o Retorno de Erro --}}
-
             @if (session('Error'))
                 <div class="alert alert-danger m-3" role="alert">
                     {{ session('Error') }}
