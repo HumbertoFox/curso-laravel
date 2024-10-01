@@ -22,3 +22,23 @@ if (inputValor) {
         inputValor.value = formatValor;
     });
 };
+
+// Alerta para exclusão da conta e excluindo
+function confirmDelete(event, contaId) {
+    event.preventDefault();
+
+    Swal.fire({
+        title: 'Tem Certeza?',
+        text: "Você Não poderá Reverter Isso!",
+        icon: 'warning',
+        showCancelButton: true,
+        cancelButtonColor: '#0D6EFD',
+        cancelButtonText: 'Cancelar',
+        confirmButtonColor: '#DC3545',
+        confirmButtonText: 'Sim, excluir!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            document.getElementById(`formExcluir${contaId}`).submit();
+        };
+    });
+};

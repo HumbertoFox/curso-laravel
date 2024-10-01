@@ -46,11 +46,8 @@
                 </div>
             </div>
             {{-- Exibir o Retorno de Sucesso --}}
-            @if (session('Sucesso'))
-                <div class="alert alert-success m-3" role="alert">
-                    {{ session('Sucesso') }}
-                </div>
-            @endif
+            <x-alert />
+
             <div class="card-body">
                 <table class="table">
                     <thead>
@@ -77,12 +74,12 @@
                                     <a href="{{ route('conta.edit', ['conta' => $conta->id]) }}"
                                         class="btn btn-warning btn-sm">Editar</a>
 
-                                    <form action="{{ route('conta.destroy', ['conta' => $conta->id]) }}" method="POST">
+                                    <form action="{{ route('conta.destroy', ['conta' => $conta->id]) }}" method="POST"
+                                        id="formExcluir{{ $conta->id }}">
                                         @csrf
                                         @method('delete')
-                                        <input type="submit" value="Excluir"
-                                            onclick="return confirm('Tem Certeza que deseja Excluir esta Conta?')"
-                                            class="btn btn-danger btn-sm">
+                                        <button type="submit" onclick="confirmDelete(event, {{ $conta->id }})"
+                                            class="btn btn-danger btn-sm">Excluir</button>
                                     </form>
                                 </td>
                             </tr>

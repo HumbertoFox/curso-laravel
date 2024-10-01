@@ -8,20 +8,8 @@
                 <a href="{{ route('conta.show', ['conta' => $conta->id]) }}" class="btn btn-primary btn-sm">Visualizar</a>
             </div>
 
-            {{-- Exibir o Retorno de Sucesso ou Erro --}}
-            @if (session('Error'))
-                <div class="alert alert-danger m-3" role="alert">
-                    {{ session('Error') }}
-                </div>
-            @endif
-
-            @if ($errors->any())
-                <div class="alert alert-danger m-3" role="alert">
-                    @foreach ($errors->all() as $error)
-                        {{ $error }}<br>
-                    @endforeach
-                </div>
-            @endif
+            {{-- Exibir o Retorno de Erro --}}
+            <x-alert />
 
             <form action="{{ route('conta.update', ['conta' => $conta->id]) }}" method="POST" class="row g-3 px-4 pb-4">
                 @csrf {{-- Indicando que a requisição esta vindo de uma pag interna --}}

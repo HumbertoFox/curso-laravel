@@ -9,11 +9,7 @@
             </div>
 
             {{-- Exibir o Retorno de Sucesso --}}
-            @if (session('Sucesso'))
-                <div class="alert alert-success m-3" role="alert">
-                    {{ session('Sucesso') }}
-                </div>
-            @endif
+            <x-alert />
 
             <div class="card-body">
                 <dl class="row">

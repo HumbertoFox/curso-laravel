@@ -24,7 +24,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        //Paginação com BootStrap
         Paginator::useBootstrapFive();
+
+        // Número maxímo de caracteres para o Banco de Dados
         Schema::defaultStringLength('191');
     }
 }
