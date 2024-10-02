@@ -56,6 +56,7 @@
                             <th scope="col">Nome</th>
                             <th scope="col">Valor</th>
                             <th scope="col">Vencimento</th>
+                            <th scope="col">Situação</th>
                             <th scope="col" class="text-center">Ações</th>
                         </tr>
                     </thead>
@@ -63,10 +64,16 @@
                         @forelse ($contas as $conta)
                             <tr>
                                 <th>{{ $conta->id }}</th>
+
                                 <td>{{ $conta->nome }}</td>
+
                                 <td>{{ 'R$ ' . number_format($conta->valor, 2, ',', '.') }}</td>
+
                                 <td>{{ \Carbon\Carbon::parse($conta->vencimento)->tz('America/Recife')->format('d/m/Y') }}
                                 </td>
+
+                                <td>{!! '<span class="badge text-bg-' . $conta->contaSituacao->cor . '">' . $conta->contaSituacao->nome . '</span>' !!}</td>
+
                                 <td class="d-md-flex justify-content-center gap-3">
                                     <a href="{{ route('conta.show', ['conta' => $conta->id]) }}"
                                         class="btn btn-primary btn-sm">Visualizar</a>
@@ -85,7 +92,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="5" class="text-danger text-center">Nenhuma Conta Encontrada!</td>
+                                <td colspan="6" class="text-danger text-center">Nenhuma Conta Encontrada!</td>
                             </tr>
                         @endforelse
                     </tbody>

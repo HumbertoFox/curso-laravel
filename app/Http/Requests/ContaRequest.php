@@ -24,7 +24,8 @@ class ContaRequest extends FormRequest
         return [
             'nome' => 'required',
             'valor' => 'required',
-            'vencimento' => 'required'
+            'vencimento' => 'required',
+            'situacao_conta_id' => 'required'
         ];
     }
 
@@ -34,6 +35,7 @@ class ContaRequest extends FormRequest
             'nome.required' => 'Campo Nome é Obrigatório!',
             'valor.required' => 'Campo Valor é Obrigatório!',
             'vencimento.required' => 'Campo Vencimento é Obrigatório!',
+            'situacao_conta_id.required' => 'Campo Situação da Conta é Obrigatório!'
         ];
     }
 }

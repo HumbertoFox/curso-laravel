@@ -15,7 +15,7 @@
     <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
 </head>
 
-<body>
+<body class="vh-100">
     <header class="p-3 text-bg-primary">
         <div class="container">
             <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
@@ -37,13 +37,13 @@
         </div>
     </header>
 
-    <main class="d-flex justify-content-center">
+    <main class="h-100 d-flex flex-column">
         @yield('content')
+        
+        <footer class="d-flex justify-content-center">
+            Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }})
+        </footer>
     </main>
-
-    <footer class="d-flex justify-content-center">
-        Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }})
-    </footer>
 
     <script src="{{ asset('js/custom.js') }}"></script>
 </body>

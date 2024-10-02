@@ -11,11 +11,21 @@ return new class extends Migration
      */
     public function up(): void
     {
+        // Cria a tabela contas_situacao
+        Schema::create('contas_situacao', function (Blueprint $table) {
+            $table->id();
+            $table->string('nome');
+            $table->string('cor');
+            $table->timestamps();
+        });
+
+        // Cria a tabela contas
         Schema::create('contas', function (Blueprint $table) {
             $table->id();
             $table->string('nome');
             $table->float('valor');
             $table->date('vencimento');
+            $table->foreignId('situacao_conta_id')->default(2)->constrained('contas_situacao');
             $table->timestamps();
         });
     }
@@ -26,5 +36,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('contas');
+        Schema::dropIfExists('contas_situacao');
     }
 };

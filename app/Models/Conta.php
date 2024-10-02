@@ -13,5 +13,11 @@ class Conta extends Model
     protected $table = 'contas';
 
     // Indicar quais colunas podem ser cadastrada
-    protected $fillable = ['nome', 'valor', 'vencimento'];
+    protected $fillable = ['nome', 'valor', 'vencimento', 'situacao_conta_id'];
+
+    // Relacionamento com ContaSituacao
+    public function contaSituacao()
+    {
+        return $this->belongsTo(ContaSituacao::class, 'situacao_conta_id');
+    }
 }

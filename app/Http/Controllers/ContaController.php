@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ContaRequest;
 use App\Models\Conta;
+use App\Models\ContaSituacao;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Exception;
 use Illuminate\Http\Request;
@@ -21,7 +22,7 @@ class ContaController extends Controller
             $whenQuery->where('vencimento', '>=', \Carbon\Carbon::parse($request->data_inicio)->format('Y-m-d'));
         })->when($request->filled('data_fim'), function ($whenQuery) use ($request) {
             $whenQuery->where('vencimento', '<=', \Carbon\Carbon::parse($request->data_fim)->format('Y-m-d'));
-        })->orderByDesc('created_at')->paginate(10)->withQueryString();
+        })->with('contaSituacao')->orderByDesc('created_at')->paginate(10)->withQueryString();
 
         // Carregar a View
         return view('contas.index', [
@@ -35,8 +36,13 @@ class ContaController extends Controller
     // Detalhes da Conta
     public function create()
     {
+        // Reculperar dados do Banco de Dados Situações
+        $situacoesContas = ContaSituacao::orderBy('nome', 'asc')->get();
+
         // Carregar a View
-        return view('contas.create');
+        return view('contas.create', [
+            'situacoesContas' => $situacoesContas
+        ]);
     }
 
     // Carregar o Formulário Cadastrar Nova Conta
@@ -51,7 +57,8 @@ class ContaController extends Controller
             $conta = Conta::create([
                 'nome' => $request->nome,
                 'valor' => str_replace(',', '.', str_replace('.', '', $request->valor)),
-                'vencimento' => $request->vencimento
+                'vencimento' => $request->vencimento,
+                'situacao_conta_id' => $request->situacao_conta_id
             ]);
 
             // Registrando Log de Sucesso
@@ -79,8 +86,14 @@ class ContaController extends Controller
     // Carregar Formulário Editar a Conta
     public function edit(Conta $conta)
     {
+        // Reculperar dados do Banco de Dados Situações
+        $situacoesContas = ContaSituacao::orderBy('nome', 'asc')->get();
+
         // Carregar a View
-        return view('contas.edit', ['conta' => $conta]);
+        return view('contas.edit', [
+            'conta' => $conta,
+            'situacoesContas' => $situacoesContas
+        ]);
     }
 
     // Editar Banco de Dados a Conta
@@ -95,7 +108,8 @@ class ContaController extends Controller
             $conta->update([
                 'nome' => $request->nome,
                 'valor' => str_replace(',', '.', str_replace('.', '', $request->valor)),
-                'vencimento' => $request->vencimento
+                'vencimento' => $request->vencimento,
+                'situacao_conta_id' => $request->situacao_conta_id
             ]);
 
             // Registrando Log de Sucesso
