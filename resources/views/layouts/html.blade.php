@@ -37,7 +37,7 @@
         </div>
     </header>
 
-    <main class="h-100 d-flex flex-column">
+    <main class="d-flex flex-column">
         @yield('content')
         
         <footer class="d-flex justify-content-center">

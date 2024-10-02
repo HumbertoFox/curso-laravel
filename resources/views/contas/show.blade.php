@@ -27,12 +27,16 @@
                         {{ \Carbon\Carbon::parse($conta->vencimento)->tz('America/Recife')->format('d/m/Y') }}</dd>
 
                     <dt class="col-sm-3">Situação</dt>
-                    <dd class="col-sm-9">{!! '<span class="badge text-bg-' . $conta->contaSituacao->cor . '">' . $conta->contaSituacao->nome . '</span>' !!}</dd>
+                    <dd class="col-sm-9">
+                        <a href="{{ route('conta.change-situation', ['conta' => $conta->id]) }}">
+                            {!! '<span class="badge text-bg-' . $conta->contaSituacao->cor . '">' . $conta->contaSituacao->nome . '</span>' !!}
+                        </a>
+                    </dd>
 
                     <dt class="col-sm-3">Cadastro</dt>
                     <dd class="col-sm-9">
                         {{ \Carbon\Carbon::parse($conta->created_at)->tz('America/Recife')->format('d/m/Y H:i:s') }}</dd>
-                        
+
 
                     <dt class="col-sm-3">Editado</dt>
                     <dd class="col-sm-9">

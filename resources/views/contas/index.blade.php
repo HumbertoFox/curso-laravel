@@ -40,9 +40,19 @@
             <div class="card-header d-flex justify-content-between">
                 <span>Listar Contas</span>
                 <div>
-                    <a href="{{ route('conta.create') }}" class="btn btn-primary btn-sm">Cadastrar</a>
-                    <a href="{{ url('gerar-pdf-conta?' . request()->getQueryString()) }}"
-                        class="btn btn-warning btn-sm">Gerar PDF</a>
+                    <a href="{{ route('conta.create') }}" class="btn btn-info btn-sm">Cadastrar</a>
+
+                    <a href="{{ url('gerar-pdf-conta?' . request()->getQueryString()) }}" class="btn btn-danger btn-sm">
+                        Gerar PDF
+                    </a>
+
+                    <a href="{{ url('gerar-csv-conta?' . request()->getQueryString()) }}" class="btn btn-success btn-sm">
+                        Gerar CSV
+                    </a>
+
+                    <a href="{{ url('gerar-docx-conta?' . request()->getQueryString()) }}" class="btn btn-primary btn-sm">
+                        Gerar DOCX
+                    </a>
                 </div>
             </div>
             {{-- Exibir o Retorno de Sucesso --}}
@@ -51,28 +61,33 @@
             <div class="card-body">
                 <table class="table">
                     <thead>
-                        <tr>
+                        <tr class="text-center">
                             <th scope="col">ID</th>
                             <th scope="col">Nome</th>
                             <th scope="col">Valor</th>
                             <th scope="col">Vencimento</th>
                             <th scope="col">Situação</th>
-                            <th scope="col" class="text-center">Ações</th>
+                            <th scope="col">Ações</th>
                         </tr>
                     </thead>
                     <tbody>
                         @forelse ($contas as $conta)
-                            <tr>
-                                <th>{{ $conta->id }}</th>
+                            <tr class="text-center">
+                                <td>{{ $conta->id }}</td>
 
                                 <td>{{ $conta->nome }}</td>
 
                                 <td>{{ 'R$ ' . number_format($conta->valor, 2, ',', '.') }}</td>
 
-                                <td>{{ \Carbon\Carbon::parse($conta->vencimento)->tz('America/Recife')->format('d/m/Y') }}
+                                <td>
+                                    {{ \Carbon\Carbon::parse($conta->vencimento)->tz('America/Recife')->format('d/m/Y') }}
                                 </td>
 
-                                <td>{!! '<span class="badge text-bg-' . $conta->contaSituacao->cor . '">' . $conta->contaSituacao->nome . '</span>' !!}</td>
+                                <td>
+                                    <a href="{{ route('conta.change-situation', ['conta' => $conta->id]) }}">
+                                        {!! '<span class="badge text-bg-' . $conta->contaSituacao->cor . '">' . $conta->contaSituacao->nome . '</span>' !!}
+                                    </a>
+                                </td>
 
                                 <td class="d-md-flex justify-content-center gap-3">
                                     <a href="{{ route('conta.show', ['conta' => $conta->id]) }}"
