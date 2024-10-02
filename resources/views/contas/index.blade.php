@@ -100,8 +100,8 @@
                                         id="formExcluir{{ $conta->id }}">
                                         @csrf
                                         @method('delete')
-                                        <button type="submit" onclick="confirmDelete(event, {{ $conta->id }})"
-                                            class="btn btn-danger btn-sm">Excluir</button>
+                                        <button type="submit" data-delete-id="{{ $conta->id }}"
+                                            class="btn btn-danger btn-sm btnDelete">Excluir</button>
                                     </form>
                                 </td>
                             </tr>

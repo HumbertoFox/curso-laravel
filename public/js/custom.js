@@ -23,22 +23,33 @@ if (inputValor) {
     });
 };
 
-// Alerta para exclusão da conta e excluindo
-function confirmDelete(event, contaId) {
-    event.preventDefault();
+// Receba o seletor apagar e percorrer a lista de registro
+document.querySelectorAll('.btnDelete').forEach(function (button) {
 
-    Swal.fire({
-        title: 'Tem Certeza?',
-        text: "Você Não poderá Reverter Isso!",
-        icon: 'warning',
-        showCancelButton: true,
-        cancelButtonColor: '#0D6EFD',
-        cancelButtonText: 'Cancelar',
-        confirmButtonColor: '#DC3545',
-        confirmButtonText: 'Sim, excluir!'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            document.getElementById(`formExcluir${contaId}`).submit();
-        };
+    // Aguardar o clique do usuário no botão apagar
+    button.addEventListener('click', function (event) {
+
+        // Bloquear o recarregamento da página
+        event.preventDefault();
+
+        // Receber o atributo que possui o ID do Registro que deve ser Excluído
+        let deleteId = button.getAttribute('data-delete-id');
+        
+        Swal.fire({
+            title: 'Tem Certeza?',
+            text: "Você Não poderá Reverter Isso!",
+            icon: 'warning',
+            showCancelButton: true,
+            cancelButtonColor: '#0D6EFD',
+            cancelButtonText: 'Cancelar',
+            confirmButtonColor: '#DC3545',
+            confirmButtonText: 'Sim, excluir!'
+        }).then((result) => {
+            // Carregar a página responsável em excluir se o usuário confirmar a exclusão
+            if (result.isConfirmed) {
+                document.getElementById(`formExcluir${deleteId}`).submit();
+            };
+        });
+
     });
-};
+});

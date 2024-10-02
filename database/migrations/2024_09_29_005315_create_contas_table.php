@@ -27,6 +27,7 @@ return new class extends Migration
             $table->date('vencimento');
             $table->foreignId('situacao_conta_id')->default(2)->constrained('contas_situacao');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
