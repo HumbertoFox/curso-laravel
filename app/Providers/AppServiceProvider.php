@@ -14,7 +14,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        if (config('app.env') !== 'http://localhost') {
+        if ($this->app->environment('production', 'staging')) {
             URL::forceScheme('https');
         }
     }
