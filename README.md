@@ -30,6 +30,89 @@
 
 ## About Laravel + Vite
 
+### Como fazer Deploy do Github Laravel no Railway adicionar as variáveis de ambiente no App e no Banco de Dados Railway:
+
+<div align="center">
+
+### <img src="https://github.com/user-attachments/assets/aede684a-b961-448a-96c8-7a64b2750550" width="450px"/>
+
+### <img src="https://github.com/user-attachments/assets/f21d02fd-4101-413d-a321-99f38ddc3711" width="450px"/>
+
+### <img src="https://github.com/user-attachments/assets/2f04f20b-4293-4fe0-a90a-1664af61ed1b" width="450px" />
+
+### <img src="https://github.com/user-attachments/assets/04386811-2328-4704-9180-9834e67b022a" width="450px"/>
+
+<div align="start">
+
+Adicionar as variáveis de ambiente do .env local como mostra na imagem abaixo e fazer as substituição a seguir:
+
+</div>
+
+### <img src="https://github.com/user-attachments/assets/72b73678-aced-4209-998a-3491f1b8b223" width="450px"/>
+
+### <img src="https://github.com/user-attachments/assets/b6f3046b-aea6-4c3b-84b8-8602a9fe48f3" width="450px"/>
+
+### <img src="https://github.com/user-attachments/assets/fa7f0c04-376f-4a6d-ad9b-e49898ed5f4e" width="450px"/>
+
+
+<div align="start">
+
+Para garantir que as URLs utilizem sempre HTTPS adicione este if no /app/Providers/AppServiceProvider.php
+
+register
+
+```php
+  if ($this->app->environment('production', 'staging')) {
+    URL::forceScheme('https');
+  }
+```
+
+Substituir os valores das seguintes variáveis:
+
+APP_ENV="local" por APP_ENV="production"
+
+DB_HOST por PGHOST<br>
+DB_PORT por PGPORT<br>
+DB_DATABASE por PGDATABASE<br>
+DB_USERNAME por PGUSER<br>
+DB_PASSWORD por POSTGRES_PASSWORD<br>
+
+
+Em seguida copiar o conteúdo da variável de ambiente DATABASE_PUBLIC_URL do Railway para o .env local.
+
+E inserir os valores nas variáveis no .env local para fazer o migration no Banco de Dados no Railway.
+
+DB_HOST<br>
+DB_PORT<br>
+DB_DATABASE<br>
+DB_USERNAME<br>
+DB_PASSWORD<br>
+
+Após a copia dos valores corretos usar o seguinte comando:
+
+```bach
+php artisan migrate
+
+```
+
+Após fazer a mogration publique o App como mostro nas imagens abaixo:
+
+</div>
+
+### <img src="https://github.com/user-attachments/assets/f1ccba37-9dc3-4dfa-9dd3-d7bc973cd5e4" width="450px"/>
+
+### <img src="https://github.com/user-attachments/assets/6315b3e5-1a8a-40a2-b01f-24fca5c2ca78" width="450px"/>
+
+### <img src="https://github.com/user-attachments/assets/c5554800-0223-48c0-a48c-48588e513efc" width="450px"/>
+
+<div align="start">
+
+Por padrão a porta do App esta como 8080 e quando publicamos é 9000, altere-a para 8080, pronto o seu App esta no ar.
+
+</div>
+
+</div>
+
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
 - [Simple, fast routing engine](https://laravel.com/docs/routing).
